@@ -41,4 +41,34 @@ object Recursion extends App {
     2. IsPrime function tail recursive
     3. Fibonacci function, tail recursive
   */
+  @tailrec
+  def concanateStrings(str: String, n: Int, accumulator: String): String =
+    if (n <= 0) accumulator
+    else concanateStrings(str, n-1, str + accumulator)
+
+  println(concanateStrings("Hello!",2, ""))
+
+  def aPrimeTester(n: Int): Boolean = {
+    @tailrec
+    def isPrimeUntil(t: Int, stillPrime: Boolean): Boolean =
+      if (!stillPrime) false
+      else if (t <= 1) true
+      else isPrimeUntil(t - 1, n % t !=0 && stillPrime)
+
+    isPrimeUntil(n / 2, true)
+  }
+
+  println(aPrimeTester(2003))
+  println(aPrimeTester(629))
+
+  def aFibonnaciFunction(n: Int): Int = {
+    @tailrec
+    def fiboTailrec(i: Int, accumulator1: Int, accumulator2: Int): Int =
+      if (i >= n) accumulator1
+      else fiboTailrec(i + 1, accumulator1 + accumulator2, accumulator1)
+
+    if (n <= 2) 1
+    else fiboTailrec(2, 1, 1)
+  }
+  println(aFibonnaciFunction(8))
 }
